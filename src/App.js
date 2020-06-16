@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./components/HeaderComponent";
 import InfoComponent from "./components/InfoComponent";
+import SieveComponent from "./components/SieveComponent";
 
 function App() {
   const [lang, setLang] = useState(false);
@@ -14,6 +15,7 @@ function App() {
       <Header callbackLangValue={langValue} />
       <main>
         <InfoComponent selectLang={lang} />
+        <SieveComponent selectLang={lang} />
       </main>
     </>
   );
