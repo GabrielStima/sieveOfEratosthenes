@@ -1,0 +1,33 @@
+.sieveComponentBody {
+  margin-top: 1rem;
+}
+.initialDescription {
+  display: block;
+}
+.testHint {
+  font-size: 0.7rem;
+  font-style: italic;
+}
+.principalInput {
+  border-radius: 0.2rem;
+  border: 1px solid #707070;
+  padding: 0.4rem 1rem;
+  width: 14.5rem;
+  margin: 0.5rem 0 2rem 0;
+  display: block;
+}
+.principalButton {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem 6rem;
+  background-color: #c5c5c5;
+  border: none;
+  border-radius: 0.2rem;
+  font-size: 1.3rem;
+  color: #494949;
+  cursor: pointer;
+}
+.principalButton:focus,
+.principalButton:hover {
+  background-color: #d3d3d3;
+}
