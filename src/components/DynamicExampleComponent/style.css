@@ -1,0 +1,45 @@
+.exampleBody section {
+  margin-bottom: 2rem;
+}
+.tableContainer {
+  display: grid;
+  width: 40rem;
+  grid-template-columns: repeat(15, 1fr);
+  margin: 1rem auto;
+}
+.tableItem {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(226, 226, 226);
+  margin: 0.5px;
+  cursor: default;
+}
+.tableItem:focus,
+.tableItem:hover {
+  background-color: rgb(189, 187, 187);
+}
+.codeArea {
+  display: grid;
+  grid-template-columns: 4% 96%;
+  width: 100%;
+  background-color: rgb(226, 226, 226);
+  padding: 0.5rem 0;
+  margin: 1rem 0;
+}
+.linesCount {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgb(189, 187, 187);
+  color: rgb(92, 92, 92);
+  text-align: center;
+  margin-right: 0.5rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.codeBody {
+  font-size: 0.8rem;
+}
