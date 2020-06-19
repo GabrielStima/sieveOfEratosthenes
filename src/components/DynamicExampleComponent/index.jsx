@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import sieveOfEratosthenesService from "../../services/sieveOfEratosthenesService";
 import "./style.css";
 
 const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
@@ -8,10 +9,18 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
   const [firstArray, setFirstArray] = useState([]);
   const [secondArray, setSecondArray] = useState([]);
   const [thirdArray, setThirdArray] = useState([]);
+  const [arrayMultiples, setArrayMultiples] = useState([]);
 
   useEffect(() => {
     if (step === 1) {
       setFirstArray(currentPrimeArray);
+      setArrayMultiples(
+        sieveOfEratosthenesService.countMultiples(
+          currentPrimeArray[0],
+          currentPrimeArray[currentPrimeArray.length - 1],
+          3
+        )
+      );
     }
   }, [step, currentPrimeArray]);
 
@@ -60,13 +69,16 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
             </div>
             <div className="codeBody">
               <p>{"generateInitialArray(finalNumber) {"}</p>
-              <p>{"let array = [ ];"}</p>
+              <p>&nbsp;&nbsp;{"let array = [ ];"}</p>
               <br />
-              <p>{"for (let index = 2; index <= finalNumber; index++) {"}</p>
-              <p>{"array.push(index);"}</p>
-              <p>{"}"}</p>
+              <p>
+                &nbsp;&nbsp;
+                {"for (let index = 2; index <= finalNumber; index++) {"}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{"array.push(index);"}</p>
+              <p>&nbsp;&nbsp;{"}"}</p>
               <br />
-              <p>{"return array;"}</p>
+              <p>&nbsp;&nbsp;{"return array;"}</p>
               <p>{"}"}</p>
             </div>
           </div>
@@ -106,14 +118,19 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
             </div>
             <div className="codeBody">
               <p>{"divisibleByTwo(primeArray) {"}</p>
-              <p>{"let array = [...primeArray];"}</p>
+              <p>&nbsp;&nbsp;{"let array = [...primeArray];"}</p>
               <br />
-              <p>{"array.forEach((number, index) => {"}</p>
-              <p>{"if (number % 2 === 0 && number !== 2) {"}</p>
-              <p>{"array.splice(index, 1);"}</p>
-              <p>{"}"}</p>
-              <p>{"});"}</p>
-              <p>{"return array;"}</p>
+              <p>&nbsp;&nbsp;{"array.forEach((number, index) => {"}</p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                {"if (number % 2 === 0 && number !== 2) {"}
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{"array.splice(index, 1);"}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{"}"}</p>
+              <p>&nbsp;&nbsp;{"});"}</p>
+              <p>&nbsp;&nbsp;{"return array;"}</p>
               <p>{"}"}</p>
             </div>
           </div>
@@ -167,26 +184,35 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
             </div>
             <div className="codeBody">
               <p>{`handleMultiples(primeArray, finalNumber) {`}</p>
-              <p>{`let array = [...primeArray];`}</p>
-              <p>{`let count = 0;`}</p>
-              <p>{`let countFor = array.length;`}</p>
+              <p>&nbsp;&nbsp;{`let array = [...primeArray];`}</p>
+              <p>&nbsp;&nbsp;{`let count = 0;`}</p>
+              <p>&nbsp;&nbsp;{`let countFor = array.length;`}</p>
               <br />
-              <p>{`do {`}</p>
-              <p>{`if (array[count] !== 2) {`}</p>
-              <p>{`array = sieveOfEratosthenesService.multiplesOf(`}</p>
-              <p>{`array,`}</p>
-              <p>{`2,`}</p>
-              <p>{`finalNumber,`}</p>
-              <p>{`array[count]`}</p>
-              <p>{`);`}</p>
-              <p>{`count += 1;`}</p>
-              <p>{`countFor = array.length;`}</p>
-              <p>{`} else {`}</p>
-              <p>{`count += 1;`}</p>
-              <p>{`}`}</p>
-              <p>{`} while (count <= countFor);`}</p>
+              <p>&nbsp;&nbsp;{`do {`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`if (array[count] !== 2) {`}</p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {`array = sieveOfEratosthenesService.multiplesOf(`}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`array,`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`2,`}</p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`finalNumber,`}
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`array[count]`}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`);`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`count += 1;`}</p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`countFor = array.length;`}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`} else {`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`count += 1;`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`}`}</p>
+              <p>&nbsp;&nbsp;{`} while (count <= countFor);`}</p>
               <br />
-              <p>{`return array;`}</p>
+              <p>&nbsp;&nbsp;{`return array;`}</p>
               <p>{`}`}</p>
             </div>
           </div>
@@ -237,28 +263,40 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
             </div>
             <div className="codeBody">
               <p>{`multiplesOf(array, initialNumber, finalNumber, multipliedNumber) {`}</p>
-              <p>{`let temp = [...array];`}</p>
-              <p>{`let arrayMultiples = [];`}</p>
-              <p>{`let arrayMultiplesFiltered;`}</p>
+              <p>&nbsp;&nbsp;{`let temp = [...array];`}</p>
+              <p>&nbsp;&nbsp;{`let arrayMultiples = [];`}</p>
+              <p>&nbsp;&nbsp;{`let arrayMultiplesFiltered;`}</p>
               <br />
-              <p>{`for (let index = initialNumber; index <= finalNumber; index++) {`}</p>
-              <p>{`const result = index * multipliedNumber;`}</p>
-              <p>{`arrayMultiples.push(result);`}</p>
-              <p>{`}`}</p>
+              <p>
+                &nbsp;&nbsp;
+                {`for (let index = initialNumber; index <= finalNumber; index++) {`}
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                {`const result = index * multipliedNumber;`}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiples.push(result);`}</p>
+              <p>&nbsp;&nbsp;{`}`}</p>
               <br />
-              <p>{`arrayMultiplesFiltered = sieveOfEratosthenesService.filterArrayMultiples(`}</p>
-              <p>{`temp,`}</p>
-              <p>{`arrayMultiples,`}</p>
-              <p>{`finalNumber`}</p>
-              <p>{`);`}</p>
+              <p>
+                &nbsp;&nbsp;
+                {`arrayMultiplesFiltered = sieveOfEratosthenesService.filterArrayMultiples(`}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`temp,`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiples,`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`finalNumber`}</p>
+              <p>&nbsp;&nbsp;{`);`}</p>
               <br />
-              <p>{`temp = sieveOfEratosthenesService.takeOfMultiples(`}</p>
-              <p>{`temp,`}</p>
-              <p>{`arrayMultiplesFiltered,`}</p>
-              <p>{`multipliedNumber`}</p>
-              <p>{`);`}</p>
+              <p>
+                &nbsp;&nbsp;
+                {`temp = sieveOfEratosthenesService.takeOfMultiples(`}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`temp,`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiplesFiltered,`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`multipliedNumber`}</p>
+              <p>&nbsp;&nbsp;{`);`}</p>
               <br />
-              <p>{`return temp;`}</p>
+              <p>&nbsp;&nbsp;{`return temp;`}</p>
               <p>{`}`}</p>
             </div>
           </div>
@@ -277,7 +315,11 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
             Let's use the example of number 3, which is the first existing
             number after number 2.
           </p>
-          {/* {'TABLE COM MULTIPLOS'} */}
+          <div className="tableContainer">
+            {arrayMultiples.map((element) => (
+              <p className="tableItem">{element}</p>
+            ))}
+          </div>
           <p>
             With the result of the multiple array we have to clear it, because
             if our limit number is 50 or if the number no longer exists in the
@@ -299,10 +341,13 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
             </div>
             <div className="codeBody">
               <p>{`filterArrayMultiples(array, arrayMultiples, finalNumber) {`}</p>
-              <p>{`let temp = [...arrayMultiples];`}</p>
+              <p>&nbsp;&nbsp;{`let temp = [...arrayMultiples];`}</p>
               <br />
-              <p>{`let result = temp.map(number => {`}</p>
-              <p>{`return finalNumber > number && array.includes(number) && number;`}</p>
+              <p>&nbsp;&nbsp;{`let result = temp.map(number => {`}</p>
+              <p>
+                &nbsp;&nbsp;
+                {`return finalNumber > number && array.includes(number) && number;`}
+              </p>
               <p>{`});`}</p>
               <br />
               <p>{`result = result.filter(number => number !== false);`}</p>
@@ -333,15 +378,26 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
             </div>
             <div className="codeBody">
               <p>{`takeOfMultiples(array, arrayMultiples, multipliedNumber) {`}</p>
-              <p>{`let temp = [...array];`}</p>
+              <p>&nbsp;&nbsp;{`let temp = [...array];`}</p>
               <br />
-              <p>{`for (let current = 0; current < arrayMultiples.length; current++) {`}</p>
-              <p>{`temp.forEach((number, index) => {`}</p>
-              <p>{`if (number === arrayMultiples[current] && number !== multipliedNumber) {`}</p>
-              <p>{`temp.splice(index, 1);`}</p>
-              <p>{`}`}</p>
-              <p>{`});`}</p>
-              <p>{`}`}</p>
+              <p>
+                &nbsp;&nbsp;
+                {`for (let current = 0; current < arrayMultiples.length; current++) {`}
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;{`temp.forEach((number, index) => {`}
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {`if (number === arrayMultiples[current] && number !== multipliedNumber) {`}
+              </p>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {`temp.splice(index, 1);`}
+              </p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`}`}</p>
+              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`});`}</p>
+              <p>&nbsp;&nbsp;{`}`}</p>
               <br />
               <p>{`return temp;`}</p>
               <p>{`}`}</p>

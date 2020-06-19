@@ -40,15 +40,26 @@ const sieveOfEratosthenesService = {
 
     return array;
   },
-  multiplesOf(array, initialNumber, finalNumber, multipliedNumber) {
-    let temp = [...array];
+  countMultiples(initialNumber, finalNumber, multipliedNumber) {
     let arrayMultiples = [];
-    let arrayMultiplesFiltered;
 
     for (let index = initialNumber; index <= finalNumber; index++) {
       const result = index * multipliedNumber;
       arrayMultiples.push(result);
     }
+
+    return arrayMultiples;
+  },
+  multiplesOf(array, initialNumber, finalNumber, multipliedNumber) {
+    let temp = [...array];
+    let arrayMultiples = [];
+    let arrayMultiplesFiltered;
+
+    arrayMultiples = sieveOfEratosthenesService.countMultiples(
+      initialNumber,
+      finalNumber,
+      multipliedNumber
+    );
 
     arrayMultiplesFiltered = sieveOfEratosthenesService.filterArrayMultiples(
       temp,
