@@ -144,12 +144,12 @@ function SieveComponent({ selectLang }) {
           }
           onInput={handleFinalNumber}
         />
-        {nextStep !== 0 && (
-          <DynamicExampleComponent
-            step={nextStep}
-            currentPrimeArray={primeArray[nextStep - 1]}
-          />
-        )}
+        {/* {nextStep !== 0 && ( */}
+        <DynamicExampleComponent
+          step={nextStep}
+          currentPrimeArray={primeArray[nextStep - 1]}
+        />
+        {/* )} */}
         <button
           className="principalButton"
           disabled={stage !== 3 ? false : true}

@@ -43,3 +43,12 @@
 .codeBody {
   font-size: 0.8rem;
 }
+.messageout-enter {
+  opacity: 0;
+}
+
+/* ending ENTER animation */
+.messageout-enter-active {
+  opacity: 1;
+  transition: opacity 1s;
+}

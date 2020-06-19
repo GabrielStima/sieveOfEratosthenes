@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import sieveOfEratosthenesService from "../../services/sieveOfEratosthenesService";
 import "./style.css";
 
 const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
-  const [finalNumber] = useState(
-    currentPrimeArray[currentPrimeArray.length - 1]
-  );
+  const [finalNumber, setFinalNumber] = useState(0);
   const [firstArray, setFirstArray] = useState([]);
   const [secondArray, setSecondArray] = useState([]);
   const [thirdArray, setThirdArray] = useState([]);
   const [arrayMultiples, setArrayMultiples] = useState([]);
 
   useEffect(() => {
+    if (currentPrimeArray !== undefined) {
+      setFinalNumber(currentPrimeArray[currentPrimeArray.length - 1]);
+    }
+  }, [currentPrimeArray]);
+
+  useEffect(() => {
     if (step === 1) {
+      console.log(window);
+      console.log("firstStep", document.getElementById("firstStep").offsetTop);
       setFirstArray(currentPrimeArray);
       setArrayMultiples(
         sieveOfEratosthenesService.countMultiples(
@@ -38,382 +45,404 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
 
   return (
     <div className="exampleBody">
-      {(step === 1 || firstArray.length !== 0) && (
-        <section>
-          <h3>First step</h3>
-          <p>
-            So we need to print all prime numbers smaller than or equal to{" "}
-            {finalNumber}
-          </p>
-          <div className="tableContainer">
-            {firstArray.map((element) => (
-              <p className="tableItem">{element}</p>
-            ))}
-          </div>
-          <p>
-            To do this in JavaScript a function was built that receives the
-            limit value entered by you and made the count and returned all the
-            numbers in an array
-          </p>
-          <div className="codeArea">
-            <div className="linesCount">
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-              <p>6</p>
-              <p>7</p>
-              <p>8</p>
-              <p>9</p>
-            </div>
-            <div className="codeBody">
-              <p>{"generateInitialArray(finalNumber) {"}</p>
-              <p>&nbsp;&nbsp;{"let array = [ ];"}</p>
-              <br />
+      <TransitionGroup>
+        {(step === 1 || firstArray.length !== 0) && (
+          <CSSTransition timeout={1000} classNames="messageout" key="1">
+            <section>
+              <h3 id="firstStep">First step</h3>
               <p>
-                &nbsp;&nbsp;
-                {"for (let index = 2; index <= finalNumber; index++) {"}
+                So we need to print all prime numbers smaller than or equal to{" "}
+                {finalNumber}
               </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{"array.push(index);"}</p>
-              <p>&nbsp;&nbsp;{"}"}</p>
-              <br />
-              <p>&nbsp;&nbsp;{"return array;"}</p>
-              <p>{"}"}</p>
-            </div>
-          </div>
-        </section>
-      )}
+              <div className="tableContainer">
+                {firstArray.map((element) => (
+                  <p className="tableItem">{element}</p>
+                ))}
+              </div>
+              <p>
+                To do this in JavaScript a function was built that receives the
+                limit value entered by you and made the count and returned all
+                the numbers in an array
+              </p>
+              <div className="codeArea">
+                <div className="linesCount">
+                  <p>1</p>
+                  <p>2</p>
+                  <p>3</p>
+                  <p>4</p>
+                  <p>5</p>
+                  <p>6</p>
+                  <p>7</p>
+                  <p>8</p>
+                  <p>9</p>
+                </div>
+                <div className="codeBody">
+                  <p>{"generateInitialArray(finalNumber) {"}</p>
+                  <p>&nbsp;&nbsp;{"let array = [ ];"}</p>
+                  <br />
+                  <p>
+                    &nbsp;&nbsp;
+                    {"for (let index = 2; index <= finalNumber; index++) {"}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{"array.push(index);"}</p>
+                  <p>&nbsp;&nbsp;{"}"}</p>
+                  <br />
+                  <p>&nbsp;&nbsp;{"return array;"}</p>
+                  <p>{"}"}</p>
+                </div>
+              </div>
+            </section>
+          </CSSTransition>
+        )}
 
-      {(step === 2 || secondArray.length !== 0) && (
-        <section>
-          <h3>Second step</h3>
-          <p>
-            According to the algorithm we will mark all the numbers which are
-            divisible by 2 and are greater than or equal to the square of it.
-          </p>
-          <div className="tableContainer">
-            {secondArray.map((element) => (
-              <p className="tableItem">{element}</p>
-            ))}
-          </div>
-          <p>
-            To do this part a function was made that receives the array of
-            numbers previously generated by our code and goes through it looking
-            for any number other than 2 and the rest after a division is equal
-            to 0.
-          </p>
-          <div className="codeArea">
-            <div className="linesCount">
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-              <p>6</p>
-              <p>7</p>
-              <p>8</p>
-              <p>9</p>
-              <p>10</p>
-            </div>
-            <div className="codeBody">
-              <p>{"divisibleByTwo(primeArray) {"}</p>
-              <p>&nbsp;&nbsp;{"let array = [...primeArray];"}</p>
-              <br />
-              <p>&nbsp;&nbsp;{"array.forEach((number, index) => {"}</p>
+        {(step === 2 || secondArray.length !== 0) && (
+          <CSSTransition timeout={1000} classNames="messageout" key="2">
+            <section>
+              <h3 id="secondStep">Second step</h3>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                {"if (number % 2 === 0 && number !== 2) {"}
+                According to the algorithm we will mark all the numbers which
+                are divisible by 2 and are greater than or equal to the square
+                of it.
               </p>
+              <div className="tableContainer">
+                {secondArray.map((element) => (
+                  <p className="tableItem">{element}</p>
+                ))}
+              </div>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{"array.splice(index, 1);"}
+                To do this part a function was made that receives the array of
+                numbers previously generated by our code and goes through it
+                looking for any number other than 2 and the rest after a
+                division is equal to 0.
               </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{"}"}</p>
-              <p>&nbsp;&nbsp;{"});"}</p>
-              <p>&nbsp;&nbsp;{"return array;"}</p>
-              <p>{"}"}</p>
-            </div>
-          </div>
-        </section>
-      )}
+              <div className="codeArea">
+                <div className="linesCount">
+                  <p>1</p>
+                  <p>2</p>
+                  <p>3</p>
+                  <p>4</p>
+                  <p>5</p>
+                  <p>6</p>
+                  <p>7</p>
+                  <p>8</p>
+                  <p>9</p>
+                  <p>10</p>
+                </div>
+                <div className="codeBody">
+                  <p>{"divisibleByTwo(primeArray) {"}</p>
+                  <p>&nbsp;&nbsp;{"let array = [...primeArray];"}</p>
+                  <br />
+                  <p>&nbsp;&nbsp;{"array.forEach((number, index) => {"}</p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {"if (number % 2 === 0 && number !== 2) {"}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {"array.splice(index, 1);"}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{"}"}</p>
+                  <p>&nbsp;&nbsp;{"});"}</p>
+                  <p>&nbsp;&nbsp;{"return array;"}</p>
+                  <p>{"}"}</p>
+                </div>
+              </div>
+            </section>
+          </CSSTransition>
+        )}
 
-      {(step === 3 || thirdArray.length !== 0) && (
-        <section>
-          <h3>Third step</h3>
-          <p>
-            Now we move on to the next unmarked number 3 and we mark all numbers
-            that are multiples of 3 and are greater than or equal to the square
-            and we continue this process and our final table will be as below:
-          </p>
-          <div className="tableContainer">
-            {thirdArray.map((element) => (
-              <p className="tableItem">{element}</p>
-            ))}
-          </div>
-          <p>
-            This part of the algorithm is a little more complex, but let's go.
-          </p>
-          <p>
-            To start this process we will make a function that will handle the
-            loop that will go through the array.
-          </p>
-          <div className="codeArea">
-            <div className="linesCount">
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-              <p>6</p>
-              <p>7</p>
-              <p>8</p>
-              <p>9</p>
-              <p>10</p>
-              <p>11</p>
-              <p>12</p>
-              <p>13</p>
-              <p>14</p>
-              <p>15</p>
-              <p>16</p>
-              <p>17</p>
-              <p>18</p>
-              <p>19</p>
-              <p>20</p>
-              <p>21</p>
-              <p>22</p>
-            </div>
-            <div className="codeBody">
-              <p>{`handleMultiples(primeArray, finalNumber) {`}</p>
-              <p>&nbsp;&nbsp;{`let array = [...primeArray];`}</p>
-              <p>&nbsp;&nbsp;{`let count = 0;`}</p>
-              <p>&nbsp;&nbsp;{`let countFor = array.length;`}</p>
-              <br />
-              <p>&nbsp;&nbsp;{`do {`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`if (array[count] !== 2) {`}</p>
+        {(step === 3 || thirdArray.length !== 0) && (
+          <CSSTransition timeout={1000} classNames="messageout" key="3">
+            <section>
+              <h3 id="thirdStep">Third step</h3>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {`array = sieveOfEratosthenesService.multiplesOf(`}
+                Now we move on to the next unmarked number 3 and we mark all
+                numbers that are multiples of 3 and are greater than or equal to
+                the square and we continue this process and our final table will
+                be as below:
               </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`array,`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`2,`}</p>
+              <div className="tableContainer">
+                {thirdArray.map((element) => (
+                  <p className="tableItem">{element}</p>
+                ))}
+              </div>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`finalNumber,`}
+                This part of the algorithm is a little more complex, but let's
+                go.
               </p>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`array[count]`}
+                To start this process we will make a function that will handle
+                the loop that will go through the array.
               </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`);`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`count += 1;`}</p>
+              <div className="codeArea">
+                <div className="linesCount">
+                  <p>1</p>
+                  <p>2</p>
+                  <p>3</p>
+                  <p>4</p>
+                  <p>5</p>
+                  <p>6</p>
+                  <p>7</p>
+                  <p>8</p>
+                  <p>9</p>
+                  <p>10</p>
+                  <p>11</p>
+                  <p>12</p>
+                  <p>13</p>
+                  <p>14</p>
+                  <p>15</p>
+                  <p>16</p>
+                  <p>17</p>
+                  <p>18</p>
+                  <p>19</p>
+                  <p>20</p>
+                  <p>21</p>
+                  <p>22</p>
+                </div>
+                <div className="codeBody">
+                  <p>{`handleMultiples(primeArray, finalNumber) {`}</p>
+                  <p>&nbsp;&nbsp;{`let array = [...primeArray];`}</p>
+                  <p>&nbsp;&nbsp;{`let count = 0;`}</p>
+                  <p>&nbsp;&nbsp;{`let countFor = array.length;`}</p>
+                  <br />
+                  <p>&nbsp;&nbsp;{`do {`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`if (array[count] !== 2) {`}</p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {`array = sieveOfEratosthenesService.multiplesOf(`}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`array,`}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`2,`}</p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {`finalNumber,`}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {`array[count]`}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`);`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`count += 1;`}</p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {`countFor = array.length;`}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`} else {`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`count += 1;`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`}`}</p>
+                  <p>&nbsp;&nbsp;{`} while (count <= countFor);`}</p>
+                  <br />
+                  <p>&nbsp;&nbsp;{`return array;`}</p>
+                  <p>{`}`}</p>
+                </div>
+              </div>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`countFor = array.length;`}
-              </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`} else {`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`count += 1;`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`}`}</p>
-              <p>&nbsp;&nbsp;{`} while (count <= countFor);`}</p>
-              <br />
-              <p>&nbsp;&nbsp;{`return array;`}</p>
-              <p>{`}`}</p>
-            </div>
-          </div>
-          <p>
-            This function receives the array after filtering the number 2 and
-            the limit number entered by you, because how are we going to deal
-            with the multiples of a given number we have to generate a new set
-            of data that are multiples of number x up to the limit number.
-          </p>
-          <p>
-            To deal with the loop we will need 2 counters which are count and
-            countFor, these two variables served to limit the loop that will
-            stop when the 2 are equivalent, as one will decrease and the other
-            increase.
-          </p>
-          <p>
-            Recalling that we should not consider the number 2 in this loop, so
-            inside the loop an if was made that will go if it is 2 it will skip
-            the action. If you enter the if we will use another function that
-            will handle 1 array number at a time.{" "}
-          </p>
-          <div className="codeArea">
-            <div className="linesCount">
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-              <p>6</p>
-              <p>7</p>
-              <p>8</p>
-              <p>9</p>
-              <p>10</p>
-              <p>11</p>
-              <p>12</p>
-              <p>13</p>
-              <p>14</p>
-              <p>15</p>
-              <p>16</p>
-              <p>17</p>
-              <p>18</p>
-              <p>19</p>
-              <p>20</p>
-              <p>21</p>
-              <p>22</p>
-              <p>23</p>
-              <p>24</p>
-            </div>
-            <div className="codeBody">
-              <p>{`multiplesOf(array, initialNumber, finalNumber, multipliedNumber) {`}</p>
-              <p>&nbsp;&nbsp;{`let temp = [...array];`}</p>
-              <p>&nbsp;&nbsp;{`let arrayMultiples = [];`}</p>
-              <p>&nbsp;&nbsp;{`let arrayMultiplesFiltered;`}</p>
-              <br />
-              <p>
-                &nbsp;&nbsp;
-                {`for (let index = initialNumber; index <= finalNumber; index++) {`}
-              </p>
-              <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                {`const result = index * multipliedNumber;`}
-              </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiples.push(result);`}</p>
-              <p>&nbsp;&nbsp;{`}`}</p>
-              <br />
-              <p>
-                &nbsp;&nbsp;
-                {`arrayMultiplesFiltered = sieveOfEratosthenesService.filterArrayMultiples(`}
-              </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`temp,`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiples,`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`finalNumber`}</p>
-              <p>&nbsp;&nbsp;{`);`}</p>
-              <br />
-              <p>
-                &nbsp;&nbsp;
-                {`temp = sieveOfEratosthenesService.takeOfMultiples(`}
-              </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`temp,`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiplesFiltered,`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`multipliedNumber`}</p>
-              <p>&nbsp;&nbsp;{`);`}</p>
-              <br />
-              <p>&nbsp;&nbsp;{`return temp;`}</p>
-              <p>{`}`}</p>
-            </div>
-          </div>
-          <p>
-            The multiplesOf function will receive 4 arguments, the current prime
-            array, the initial value that will be the smallest prime number
-            which is number 2, the limit number and the number that will have
-            its multiples checked.
-          </p>
-          <p>
-            The first part of this function is to generate an array of the same
-            size as the original array that would be from number 2 to 50
-            containing only the multiples ie 2xX, 3xX, 4xX .....
-          </p>
-          <p>
-            Let's use the example of number 3, which is the first existing
-            number after number 2.
-          </p>
-          <div className="tableContainer">
-            {arrayMultiples.map((element) => (
-              <p className="tableItem">{element}</p>
-            ))}
-          </div>
-          <p>
-            With the result of the multiple array we have to clear it, because
-            if our limit number is 50 or if the number no longer exists in the
-            array of primes, there is no reason why keep those numbers.
-          </p>
-          <div className="codeArea">
-            <div className="linesCount">
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-              <p>6</p>
-              <p>7</p>
-              <p>8</p>
-              <p>9</p>
-              <p>10</p>
-              <p>11</p>
-            </div>
-            <div className="codeBody">
-              <p>{`filterArrayMultiples(array, arrayMultiples, finalNumber) {`}</p>
-              <p>&nbsp;&nbsp;{`let temp = [...arrayMultiples];`}</p>
-              <br />
-              <p>&nbsp;&nbsp;{`let result = temp.map(number => {`}</p>
-              <p>
-                &nbsp;&nbsp;
-                {`return finalNumber > number && array.includes(number) && number;`}
-              </p>
-              <p>{`});`}</p>
-              <br />
-              <p>{`result = result.filter(number => number !== false);`}</p>
-              <br />
-              <p>{`return result;`}</p>
-              <p>{`}`}</p>
-            </div>
-          </div>
-          <p>
-            After filtering the array of multiples we will remove the numbers
-            from the array of primes.
-          </p>
-          <div className="codeArea">
-            <div className="linesCount">
-              <p>1</p>
-              <p>2</p>
-              <p>3</p>
-              <p>4</p>
-              <p>5</p>
-              <p>6</p>
-              <p>7</p>
-              <p>8</p>
-              <p>9</p>
-              <p>10</p>
-              <p>11</p>
-              <p>12</p>
-              <p>13</p>
-            </div>
-            <div className="codeBody">
-              <p>{`takeOfMultiples(array, arrayMultiples, multipliedNumber) {`}</p>
-              <p>&nbsp;&nbsp;{`let temp = [...array];`}</p>
-              <br />
-              <p>
-                &nbsp;&nbsp;
-                {`for (let current = 0; current < arrayMultiples.length; current++) {`}
+                This function receives the array after filtering the number 2
+                and the limit number entered by you, because how are we going to
+                deal with the multiples of a given number we have to generate a
+                new set of data that are multiples of number x up to the limit
+                number.
               </p>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;{`temp.forEach((number, index) => {`}
+                To deal with the loop we will need 2 counters which are count
+                and countFor, these two variables served to limit the loop that
+                will stop when the 2 are equivalent, as one will decrease and
+                the other increase.
               </p>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {`if (number === arrayMultiples[current] && number !== multipliedNumber) {`}
+                Recalling that we should not consider the number 2 in this loop,
+                so inside the loop an if was made that will go if it is 2 it
+                will skip the action. If you enter the if we will use another
+                function that will handle 1 array number at a time.{" "}
+              </p>
+              <div className="codeArea">
+                <div className="linesCount">
+                  <p>1</p>
+                  <p>2</p>
+                  <p>3</p>
+                  <p>4</p>
+                  <p>5</p>
+                  <p>6</p>
+                  <p>7</p>
+                  <p>8</p>
+                  <p>9</p>
+                  <p>10</p>
+                  <p>11</p>
+                  <p>12</p>
+                  <p>13</p>
+                  <p>14</p>
+                  <p>15</p>
+                  <p>16</p>
+                  <p>17</p>
+                  <p>18</p>
+                  <p>19</p>
+                  <p>20</p>
+                  <p>21</p>
+                  <p>22</p>
+                  <p>23</p>
+                  <p>24</p>
+                </div>
+                <div className="codeBody">
+                  <p>{`multiplesOf(array, initialNumber, finalNumber, multipliedNumber) {`}</p>
+                  <p>&nbsp;&nbsp;{`let temp = [...array];`}</p>
+                  <p>&nbsp;&nbsp;{`let arrayMultiples = [];`}</p>
+                  <p>&nbsp;&nbsp;{`let arrayMultiplesFiltered;`}</p>
+                  <br />
+                  <p>
+                    &nbsp;&nbsp;
+                    {`for (let index = initialNumber; index <= finalNumber; index++) {`}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {`const result = index * multipliedNumber;`}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiples.push(result);`}
+                  </p>
+                  <p>&nbsp;&nbsp;{`}`}</p>
+                  <br />
+                  <p>
+                    &nbsp;&nbsp;
+                    {`arrayMultiplesFiltered = sieveOfEratosthenesService.filterArrayMultiples(`}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`temp,`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiples,`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`finalNumber`}</p>
+                  <p>&nbsp;&nbsp;{`);`}</p>
+                  <br />
+                  <p>
+                    &nbsp;&nbsp;
+                    {`temp = sieveOfEratosthenesService.takeOfMultiples(`}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`temp,`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`arrayMultiplesFiltered,`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`multipliedNumber`}</p>
+                  <p>&nbsp;&nbsp;{`);`}</p>
+                  <br />
+                  <p>&nbsp;&nbsp;{`return temp;`}</p>
+                  <p>{`}`}</p>
+                </div>
+              </div>
+              <p>
+                The multiplesOf function will receive 4 arguments, the current
+                prime array, the initial value that will be the smallest prime
+                number which is number 2, the limit number and the number that
+                will have its multiples checked.
               </p>
               <p>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {`temp.splice(index, 1);`}
+                The first part of this function is to generate an array of the
+                same size as the original array that would be from number 2 to
+                50 containing only the multiples ie 2xX, 3xX, 4xX .....
               </p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`}`}</p>
-              <p>&nbsp;&nbsp;&nbsp;&nbsp;{`});`}</p>
-              <p>&nbsp;&nbsp;{`}`}</p>
-              <br />
-              <p>{`return temp;`}</p>
-              <p>{`}`}</p>
-            </div>
-          </div>
-          <p>
-            And finally, after doing these procedures we will arrive at the
-            result.
-          </p>
-          <div className="tableContainer">
-            {thirdArray.map((element) => (
-              <p className="tableItem">{element}</p>
-            ))}
-          </div>
-        </section>
-      )}
+              <p>
+                Let's use the example of number 3, which is the first existing
+                number after number 2.
+              </p>
+              <div className="tableContainer">
+                {arrayMultiples.map((element) => (
+                  <p className="tableItem">{element}</p>
+                ))}
+              </div>
+              <p>
+                With the result of the multiple array we have to clear it,
+                because if our limit number is 50 or if the number no longer
+                exists in the array of primes, there is no reason why keep those
+                numbers.
+              </p>
+              <div className="codeArea">
+                <div className="linesCount">
+                  <p>1</p>
+                  <p>2</p>
+                  <p>3</p>
+                  <p>4</p>
+                  <p>5</p>
+                  <p>6</p>
+                  <p>7</p>
+                  <p>8</p>
+                  <p>9</p>
+                  <p>10</p>
+                  <p>11</p>
+                </div>
+                <div className="codeBody">
+                  <p>{`filterArrayMultiples(array, arrayMultiples, finalNumber) {`}</p>
+                  <p>&nbsp;&nbsp;{`let temp = [...arrayMultiples];`}</p>
+                  <br />
+                  <p>&nbsp;&nbsp;{`let result = temp.map(number => {`}</p>
+                  <p>
+                    &nbsp;&nbsp;
+                    {`return finalNumber > number && array.includes(number) && number;`}
+                  </p>
+                  <p>{`});`}</p>
+                  <br />
+                  <p>{`result = result.filter(number => number !== false);`}</p>
+                  <br />
+                  <p>{`return result;`}</p>
+                  <p>{`}`}</p>
+                </div>
+              </div>
+              <p>
+                After filtering the array of multiples we will remove the
+                numbers from the array of primes.
+              </p>
+              <div className="codeArea">
+                <div className="linesCount">
+                  <p>1</p>
+                  <p>2</p>
+                  <p>3</p>
+                  <p>4</p>
+                  <p>5</p>
+                  <p>6</p>
+                  <p>7</p>
+                  <p>8</p>
+                  <p>9</p>
+                  <p>10</p>
+                  <p>11</p>
+                  <p>12</p>
+                  <p>13</p>
+                </div>
+                <div className="codeBody">
+                  <p>{`takeOfMultiples(array, arrayMultiples, multipliedNumber) {`}</p>
+                  <p>&nbsp;&nbsp;{`let temp = [...array];`}</p>
+                  <br />
+                  <p>
+                    &nbsp;&nbsp;
+                    {`for (let current = 0; current < arrayMultiples.length; current++) {`}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {`temp.forEach((number, index) => {`}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {`if (number === arrayMultiples[current] && number !== multipliedNumber) {`}
+                  </p>
+                  <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {`temp.splice(index, 1);`}
+                  </p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{`}`}</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;{`});`}</p>
+                  <p>&nbsp;&nbsp;{`}`}</p>
+                  <br />
+                  <p>{`return temp;`}</p>
+                  <p>{`}`}</p>
+                </div>
+              </div>
+              <p>
+                And finally, after doing these procedures we will arrive at the
+                result.
+              </p>
+              <div className="tableContainer">
+                {thirdArray.map((element) => (
+                  <p className="tableItem">{element}</p>
+                ))}
+              </div>
+            </section>
+          </CSSTransition>
+        )}
+      </TransitionGroup>
     </div>
   );
 };
