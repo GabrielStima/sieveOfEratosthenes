@@ -32,3 +32,7 @@
   background-color: #d3d3d3;
   outline: none;
 }
+.positionCorrection {
+  position: relative;
+  bottom: 3rem;
+}

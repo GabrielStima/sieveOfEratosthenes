@@ -1,5 +1,6 @@
 .exampleBody section {
   margin-bottom: 2rem;
+  min-height: 85vh;
 }
 .tableContainer {
   display: grid;
@@ -46,8 +47,6 @@
 .messageout-enter {
   opacity: 0;
 }
-
-/* ending ENTER animation */
 .messageout-enter-active {
   opacity: 1;
   transition: opacity 1s;

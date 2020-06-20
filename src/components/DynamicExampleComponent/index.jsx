@@ -18,8 +18,10 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
 
   useEffect(() => {
     if (step === 1) {
-      console.log(window);
-      console.log("firstStep", document.getElementById("firstStep").offsetTop);
+      document
+        .getElementById("firstStep")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+
       setFirstArray(currentPrimeArray);
       setArrayMultiples(
         sieveOfEratosthenesService.countMultiples(
@@ -33,18 +35,26 @@ const DynamicExampleComponent = ({ step, currentPrimeArray }) => {
 
   useEffect(() => {
     if (step === 2) {
+      document
+        .getElementById("secondStep")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+
       setSecondArray(currentPrimeArray);
     }
   }, [step, currentPrimeArray]);
 
   useEffect(() => {
     if (step === 3) {
+      document
+        .getElementById("thirdStep")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+
       setThirdArray(currentPrimeArray);
     }
   }, [step, currentPrimeArray]);
 
   return (
-    <div className="exampleBody">
+    <div className="exampleBody" id="exampleBody">
       <TransitionGroup>
         {(step === 1 || firstArray.length !== 0) && (
           <CSSTransition timeout={1000} classNames="messageout" key="1">

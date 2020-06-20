@@ -4,7 +4,7 @@ import DynamicExampleComponent from "../DynamicExampleComponent";
 import sieveOfEratosthenesService from "../../services/sieveOfEratosthenesService";
 
 function SieveComponent({ selectLang }) {
-  const [finalNumber, setFinalNumber] = useState(0);
+  const [finalNumber, setFinalNumber] = useState();
   const [stage, setStage] = useState(0);
   const [nextStep, setNextStep] = useState(0);
   const [primeArray, setPrimeArray] = useState([]);
@@ -29,7 +29,7 @@ function SieveComponent({ selectLang }) {
           ? "Start"
           : nextStep >= 1 && nextStep < 3
           ? "Next"
-          : nextStep === 3 && "Finish"
+          : nextStep === 3 && "Reset"
       );
     } else {
       setButtonTextBR(
@@ -37,7 +37,7 @@ function SieveComponent({ selectLang }) {
           ? "Iniciar"
           : nextStep >= 1 && nextStep < 3
           ? "Próximo passo"
-          : nextStep === 3 && "Terminar"
+          : nextStep === 3 && "Reiniciar"
       );
     }
   }, [selectLang, nextStep]);
@@ -106,7 +106,17 @@ function SieveComponent({ selectLang }) {
   function showNextStep() {
     if (nextStep < 3) {
       setNextStep(nextStep + 1);
+    } else if (nextStep === 3) {
+      resetSieveComponent();
     }
+  }
+
+  function resetSieveComponent() {
+    setFinalNumber("");
+    setStage(0);
+    setNextStep(0);
+    setPrimeArray([]);
+    document.getElementById("exampleBody").innerHTML = "<div></div>";
   }
 
   function handlePrimeArray(newArray) {
@@ -137,6 +147,8 @@ function SieveComponent({ selectLang }) {
           name="finalNumber"
           className="principalInput"
           id="finalNumber"
+          readOnly={nextStep !== 0}
+          value={finalNumber}
           placeholder={
             !selectLang
               ? "Enter a number greater than 2"
@@ -144,14 +156,14 @@ function SieveComponent({ selectLang }) {
           }
           onInput={handleFinalNumber}
         />
-        {/* {nextStep !== 0 && ( */}
         <DynamicExampleComponent
           step={nextStep}
           currentPrimeArray={primeArray[nextStep - 1]}
         />
-        {/* )} */}
         <button
-          className="principalButton"
+          className={`principalButton ${
+            (nextStep < 3) & (nextStep !== 0) && "positionCorrection"
+          }`}
           disabled={stage !== 3 ? false : true}
           onClick={() => (stage === 0 ? startExemple() : showNextStep())}
         >
