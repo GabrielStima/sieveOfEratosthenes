@@ -12,15 +12,6 @@ function SieveComponent({ selectLang }) {
   const [buttonTextBR, setButtonTextBR] = useState("Iniciar");
   const [buttonTextEN, setButtonTextEN] = useState("Start");
   let handleInputEvent = null;
-  function handleFinalNumber(event) {
-    event.persist();
-    clearTimeout(handleFinalNumber);
-
-    handleFinalNumber = setTimeout(() => {
-      setFinalNumber(event.target.value);
-      console.log("teste", finalNumber);
-    }, 500);
-  }
 
   useEffect(() => {
     if (!selectLang) {
@@ -95,6 +86,16 @@ function SieveComponent({ selectLang }) {
     }
   }, [primeArray, nextStep]);
 
+  function handleFinalNumber(event) {
+    event.persist();
+    clearTimeout(handleFinalNumber);
+
+    handleFinalNumber = setTimeout(() => {
+      setFinalNumber(event.target.value);
+      console.log("teste", finalNumber);
+    }, 500);
+  }
+
   function startExemple() {
     if (stage === 0) {
       if (finalNumber !== 0) {
@@ -157,6 +158,7 @@ function SieveComponent({ selectLang }) {
           onInput={handleFinalNumber}
         />
         <DynamicExampleComponent
+          selectLang={selectLang}
           step={nextStep}
           currentPrimeArray={primeArray[nextStep - 1]}
         />

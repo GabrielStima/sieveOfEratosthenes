@@ -67,7 +67,7 @@ function InfoComponent({ selectLang }) {
   </section>
   <section>
   <div class="sectionTitle">
-    <h2>Explanation with Example</h2>
+    <h2>Explicação com Exemplos</h2>
   </div>
   <div class="sectionBody">
     <p>
