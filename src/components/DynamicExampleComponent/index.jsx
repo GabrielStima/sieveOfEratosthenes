@@ -11,10 +11,11 @@ const DynamicExampleComponent = ({ selectLang, step, currentPrimeArray }) => {
   const [arrayMultiples, setArrayMultiples] = useState([]);
 
   useEffect(() => {
-    if (currentPrimeArray !== undefined) {
+    if (currentPrimeArray !== undefined && finalNumber === 0) {
       setFinalNumber(currentPrimeArray[currentPrimeArray.length - 1]);
+      setFirstArray(currentPrimeArray);
     }
-  }, [currentPrimeArray]);
+  }, [currentPrimeArray, finalNumber]);
 
   useEffect(() => {
     if (step === 1) {
@@ -22,7 +23,6 @@ const DynamicExampleComponent = ({ selectLang, step, currentPrimeArray }) => {
         .getElementById("firstStep")
         .scrollIntoView({ behavior: "smooth", block: "start" });
 
-      setFirstArray(currentPrimeArray);
       setArrayMultiples(
         sieveOfEratosthenesService.countMultiples(
           currentPrimeArray[0],
@@ -58,7 +58,7 @@ const DynamicExampleComponent = ({ selectLang, step, currentPrimeArray }) => {
       <TransitionGroup>
         {(step === 1 || firstArray.length !== 0) && (
           <CSSTransition timeout={1000} classNames="messageout" key="1">
-            <section>
+            <section className={step === 1 ? "minHeigthForCurrentStep" : ""}>
               <h3 id="firstStep">
                 {!selectLang ? "First step" : "Primeiro passo"}
               </h3>
@@ -110,7 +110,7 @@ const DynamicExampleComponent = ({ selectLang, step, currentPrimeArray }) => {
 
         {(step === 2 || secondArray.length !== 0) && (
           <CSSTransition timeout={1000} classNames="messageout" key="2">
-            <section>
+            <section className={step === 2 ? "minHeigthForCurrentStep" : ""}>
               <h3 id="secondStep">
                 {!selectLang ? "Second step" : "Segundo passo"}
               </h3>
@@ -167,7 +167,7 @@ const DynamicExampleComponent = ({ selectLang, step, currentPrimeArray }) => {
 
         {(step === 3 || thirdArray.length !== 0) && (
           <CSSTransition timeout={1000} classNames="messageout" key="3">
-            <section>
+            <section className={step === 3 ? "minHeigthForCurrentStep" : ""}>
               <h3 id="thirdStep">
                 {!selectLang ? "Third step" : "Terceiro passo"}
               </h3>

@@ -1,5 +1,7 @@
 .exampleBody section {
   margin-bottom: 2rem;
+}
+.minHeigthForCurrentStep {
   min-height: 85vh;
 }
 .tableContainer {

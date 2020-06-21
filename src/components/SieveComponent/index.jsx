@@ -8,6 +8,7 @@ function SieveComponent({ selectLang }) {
   const [stage, setStage] = useState(0);
   const [nextStep, setNextStep] = useState(0);
   const [primeArray, setPrimeArray] = useState([]);
+  const [resetDynamicComponent, setResetDynamicComponent] = useState(false);
 
   const [buttonTextBR, setButtonTextBR] = useState("Iniciar");
   const [buttonTextEN, setButtonTextEN] = useState("Start");
@@ -92,7 +93,6 @@ function SieveComponent({ selectLang }) {
 
     handleFinalNumber = setTimeout(() => {
       setFinalNumber(event.target.value);
-      console.log("teste", finalNumber);
     }, 500);
   }
 
@@ -114,10 +114,14 @@ function SieveComponent({ selectLang }) {
 
   function resetSieveComponent() {
     setFinalNumber("");
+    document.getElementById("finalNumber").value = "";
     setStage(0);
     setNextStep(0);
     setPrimeArray([]);
-    document.getElementById("exampleBody").innerHTML = "<div></div>";
+    setResetDynamicComponent(true);
+    setTimeout(() => {
+      setResetDynamicComponent(false);
+    }, 500);
   }
 
   function handlePrimeArray(newArray) {
@@ -149,7 +153,6 @@ function SieveComponent({ selectLang }) {
           className="principalInput"
           id="finalNumber"
           readOnly={nextStep !== 0}
-          value={finalNumber}
           placeholder={
             !selectLang
               ? "Enter a number greater than 2"
@@ -157,11 +160,13 @@ function SieveComponent({ selectLang }) {
           }
           onInput={handleFinalNumber}
         />
-        <DynamicExampleComponent
-          selectLang={selectLang}
-          step={nextStep}
-          currentPrimeArray={primeArray[nextStep - 1]}
-        />
+        {!resetDynamicComponent && (
+          <DynamicExampleComponent
+            selectLang={selectLang}
+            step={nextStep}
+            currentPrimeArray={primeArray[nextStep - 1]}
+          />
+        )}
         <button
           className={`principalButton ${
             (nextStep < 3) & (nextStep !== 0) && "positionCorrection"
