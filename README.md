@@ -1,68 +1,39 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Sieve of Eratosthenes
 
-## Available Scripts
+## Resume
 
-In the project directory, you can run:
+In a group of **Discord** aimed at people who want or are already in the _T.I_ market, a question arose about how to find prime numbers within a set of numbers, after some explanations I went after a way to trying to help solve the doubts I chose **Sieve of Eratosthenes** as a way to explain.
+**Sieve of Eratosthenes** is an algorithm aimed at finding prime numbers within a given set of numbers, as the name says it sifts the numbers and that consists of always starting from the smaller prime which is number 2 and going up and out some numbers according to certain rules. With that I created a page that explains the algorithm with _JavaScript_, and the person himself can choose with which number he will test the application.
 
-### `npm start`
+## UX
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Before starting to program I wanted to create _UX_ to decide how to explain and how the interactions with the page would be.
+The first idea was to create a bilingual application because I have seen several sites that have this option, but I had never built such an application before.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Header default
 
-### `npm test`
+![](./src/assets/UX/headerEN.png)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Header traduzido
 
-### `npm run build`
+![](./src/assets/UX/headerBR.png)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After that I structured a more theoretical explanation that I found on the website [GeeksforGeeks](https://www.geeksforgeeks.org/sieve-of-eratosthenes/) and on [Wikipedia](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes). I also built a way for the user to enter a limit number for the calculation to be demonstrated.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Initial page
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![](./src/assets/UX/ENwithoutsteps.png)
 
-### `npm run eject`
+After the user enters a number greater than 2 and clicks the button, the page will explain in 3 steps how this calculation works, both the theoretical part of the steps and with _JavaScript_.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Final page
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![](./src/assets/UX/ENwithsteps.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Code
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+If you want to see the code just access the [Demo](https://codesandbox.io/embed/sieveoferatosthenes-uriuc?fontsize=14&hidenavigation=1&theme=dark)
 
-## Learn More
+## Commands enabled
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+`npm start` : Run the application

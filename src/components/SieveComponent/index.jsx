@@ -138,7 +138,7 @@ function SieveComponent({ selectLang }) {
         >
           {!selectLang
             ? "To start, type a number greater than 2."
-            : "Para iniciarmos digite um numero maior que 2."}
+            : "Para iniciarmos digite um número maior que 2."}
           <span className="testHint">
             <b>
               {!selectLang
