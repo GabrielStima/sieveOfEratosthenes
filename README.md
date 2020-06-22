@@ -1,5 +1,9 @@
 # Sieve of Eratosthenes
 
+## Code
+
+If you want to see the code just access the [Demo](https://codesandbox.io/embed/sieveoferatosthenes-uriuc?fontsize=14&hidenavigation=1&theme=dark)
+
 ## Resume
 
 In a group of **Discord** aimed at people who want or are already in the _T.I_ market, a question arose about how to find prime numbers within a set of numbers, after some explanations I went after a way to trying to help solve the doubts I chose **Sieve of Eratosthenes** as a way to explain.
@@ -29,10 +33,6 @@ After the user enters a number greater than 2 and clicks the button, the page wi
 ### Final page
 
 ![](./src/assets/UX/ENwithsteps.png)
-
-## Code
-
-If you want to see the code just access the [Demo](https://codesandbox.io/embed/sieveoferatosthenes-uriuc?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Commands enabled
 
